@@ -1,9 +1,11 @@
 package access_token
 
 import (
+	"fmt"
 	"strings"
 	"time"
 
+	"github.com/leslesnoa/bookstore_oauth-api/utils/crypto_utils"
 	restErr "github.com/leslesnoa/bookstore_oauth-api/utils/errors"
 )
 
@@ -78,6 +80,6 @@ func (at AccessToken) IsExpired() bool {
 	return time.Unix(at.Expires, 0).Before(time.Now().UTC())
 }
 
-// func (at *AccessToken) Generate() {
-// 	at.AccessToken = crypto_utils.GetMd5(fmt.Sprintf("at-%d-%d-ran", at.UserId, at.Expires))
-// }
+func (at *AccessToken) Generate() {
+	at.AccessToken = crypto_utils.GetMd5(fmt.Sprintf("at-%d-%d-ran", at.UserId, at.Expires))
+}
